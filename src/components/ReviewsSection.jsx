@@ -1,291 +1,307 @@
 import { motion } from "motion/react"
 import { Swiper, SwiperSlide } from "swiper/react"
-import { Autoplay, Navigation, Pagination } from "swiper/modules"
+import { Autoplay, Navigation } from "swiper/modules"
 import {
   ArrowRight,
-  BadgeCheck,
   ChevronLeft,
   ChevronRight,
-  Quote,
-  ShieldCheck,
   Star,
   UsersRound,
 } from "lucide-react"
 
 import "swiper/css"
 import "swiper/css/navigation"
-import "swiper/css/pagination"
+
+const introText =
+  "Landlords Property Checks is a reliable and affordable property services company that helps landlords and homeowners keep their properties safe and compliant. We provide landlord certificates, boiler repair and installation, plumbing, electrician and refurbishment services for your home or rental property."
+
+const keywords = [
+  "Landlords Property Checks",
+  "property services",
+  "landlords",
+  "homeowners",
+  "landlord certificates",
+  "boiler repair",
+  "installation",
+  "plumbing",
+  "electrician",
+  "refurbishment services",
+  "home",
+  "rental property",
+  "EICR",
+  "Gas Safety Certificate",
+  "Electrical Safety Certificates",
+  "London",
+]
 
 const reviews = [
   {
-    name: "James Wilson",
-    role: "Landlord",
-    service: "EICR Certificate",
+    name: "Jawa Zoe",
+    date: "2022-10-24",
     rating: 5,
-    text: "Very smooth service from booking to certificate. The engineer arrived on time, explained everything clearly and sent the report quickly.",
+    text: "I booked landlord property certificates online recently for EICR certificate in Camden. The engineer arrived well within time and the process was smooth.",
+    avatar: "J",
+    color: "bg-pink-600",
   },
   {
-    name: "Sarah Thompson",
-    role: "Property Manager",
-    service: "Gas Safety Check",
+    name: "Nana John Ameyaw",
+    date: "2022-10-21",
     rating: 5,
-    text: "Professional and reliable. We manage multiple rental properties and the booking process was simple, fast and well organised.",
+    text: "Thanks for the great job you did. Professional service and very helpful throughout the process.",
+    avatar: "NJ",
+    color: "bg-slate-700",
   },
   {
-    name: "Mohammed Khan",
-    role: "Homeowner",
-    service: "EPC Certificate",
+    name: "Kristen Charnley",
+    date: "2023-03-21",
     rating: 5,
-    text: "Great communication and a clear report. The assessor was polite, professional and completed everything without any hassle.",
+    text: "Reasonable pricing. Helpful and very prompt professional service from start to finish.",
+    avatar: "K",
+    color: "bg-orange-700",
   },
   {
-    name: "Emily Carter",
-    role: "Letting Agent",
-    service: "Fire Risk Assessment",
+    name: "P L",
+    date: "2023-03-18",
     rating: 5,
-    text: "Excellent service for landlord compliance. The team helped us understand what was needed and provided a detailed fire safety report.",
+    text: "Great communication, fast and competent delivery of services.",
+    avatar: "P",
+    color: "bg-stone-600",
   },
   {
-    name: "Daniel Brooks",
-    role: "Commercial Client",
-    service: "PAT Testing",
+    name: "Esraa Jasim",
+    date: "2023-05-29",
     rating: 5,
-    text: "Fast appointment, fair price and professional inspection. We will definitely use Landlords Property Checks again.",
+    text: "Very efficient and convenient service. I booked an EICR and Gas Safety Certificate and the process was handled professionally.",
+    avatar: "E",
+    color: "bg-green-700",
+  },
+  {
+    name: "Tarek Chaib",
+    date: "2023-05-02",
+    rating: 5,
+    text: "Reliable, fast and value for money service. Gas and Electrical Safety Certificates were required and handled professionally.",
+    avatar: "T",
+    color: "bg-amber-700",
   },
 ]
 
-function getInitials(name) {
-  return name
-    .split(" ")
-    .map((word) => word[0])
-    .join("")
-    .slice(0, 2)
+function highlightKeywords(text) {
+  const escaped = keywords
+    .sort((a, b) => b.length - a.length)
+    .map((item) => item.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+
+  const regex = new RegExp(`(${escaped.join("|")})`, "gi")
+  const parts = text.split(regex)
+
+  return parts.map((part, index) => {
+    const matched = keywords.some(
+      (item) => item.toLowerCase() === part.toLowerCase()
+    )
+
+    if (!matched) return <span key={index}>{part}</span>
+
+    return (
+      <strong key={index} className="font-extrabold text-brand-orange">
+        {part}
+      </strong>
+    )
+  })
+}
+
+function ReviewCard({ review }) {
+  return (
+    <article className="flex h-full min-h-[158px] flex-col rounded-[9px] bg-white p-4 text-brand-navy shadow-[0_18px_45px_rgba(0,0,0,0.22)]">
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div
+            className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-xs font-black text-white ${review.color}`}
+          >
+            {review.avatar}
+          </div>
+
+          <div>
+            <h4 className="font-display text-[13px] font-black leading-tight text-brand-navy">
+              {review.name}
+            </h4>
+            <p className="mt-0.5 text-[11px] font-medium text-slate-500">
+              {review.date}
+            </p>
+          </div>
+        </div>
+
+        <span className="font-display text-lg font-black leading-none text-[#4285F4]">
+          G
+        </span>
+      </div>
+
+      <div className="mt-3 flex gap-0.5">
+        {Array.from({ length: review.rating }).map((_, i) => (
+          <Star
+            key={i}
+            size={15}
+            className="fill-brand-orange text-brand-orange"
+          />
+        ))}
+      </div>
+
+      <p className="mt-3 line-clamp-4 text-[13px] font-medium leading-5 text-slate-700">
+        {highlightKeywords(review.text)}
+      </p>
+    </article>
+  )
+}
+
+function ReviewsSlider() {
+  return (
+    <div className="relative">
+      <button
+        className="reviews-ref-prev absolute -left-5 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-brand-navy shadow-lg transition hover:bg-brand-orange hover:text-white"
+        aria-label="Previous review"
+      >
+        <ChevronLeft size={19} />
+      </button>
+
+      <button
+        className="reviews-ref-next absolute -right-5 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-brand-navy shadow-lg transition hover:bg-brand-orange hover:text-white"
+        aria-label="Next review"
+      >
+        <ChevronRight size={19} />
+      </button>
+
+      <Swiper
+        modules={[Autoplay, Navigation]}
+        navigation={{
+          prevEl: ".reviews-ref-prev",
+          nextEl: ".reviews-ref-next",
+        }}
+        autoplay={{
+          delay: 3300,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        }}
+        loop={true}
+        grabCursor={true}
+        spaceBetween={14}
+        slidesPerView={1}
+        breakpoints={{
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 14,
+          },
+        }}
+        className="reviews-reference-slider"
+      >
+        {reviews.map((review) => (
+          <SwiperSlide key={`${review.name}-${review.date}`} className="!h-auto">
+            <ReviewCard review={review} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  )
 }
 
 function ReviewsSection() {
   return (
-    <section className="relative overflow-hidden bg-white py-16 sm:py-20 lg:py-24">
-      <div className="absolute inset-0 bg-[linear-gradient(135deg,#ffffff_0%,#f7f9fc_52%,#ffffff_100%)]" />
-      <div className="absolute -left-32 top-20 h-80 w-80 rounded-full bg-brand-orange/10 blur-3xl" />
-      <div className="absolute -right-32 bottom-16 h-96 w-96 rounded-full bg-brand-blue/10 blur-3xl" />
+    <section className="relative overflow-hidden bg-brand-navy py-20 text-white sm:py-24 lg:py-16">
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat md:bg-fixed"
+        style={{ backgroundImage: "url('/reviews-bg.jpg')" }}
+      />
 
-      <div className="relative mx-auto max-w-[1380px] px-5 lg:px-8 xl:px-10">
-        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+      <div className="absolute inset-0 bg-black/70" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,0.70)_0%,rgba(7,28,61,0.78)_48%,rgba(0,0,0,0.70)_100%)]" />
+
+      <div className="relative mx-auto max-w-[1080px] px-5 sm:px-6 lg:px-8">
+        {/* Desktop layout */}
+        <div className="relative hidden min-h-[470px] lg:block">
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 22 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.55 }}
-            className="max-w-[570px]"
+            transition={{ duration: 0.65 }}
+            className="absolute left-0 top-[58px] z-10"
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-brand-orange/15 bg-orange-50 px-4 py-2 font-nav text-sm font-extrabold text-brand-orange">
-              <UsersRound size={16} />
-              Customer Reviews
+            <div className="pointer-events-none absolute -left-4 -top-[62px] font-display text-[90px] font-black uppercase leading-none tracking-[-0.06em] text-brand-orange/28">
+              Clients
             </div>
 
-            <h2 className="mt-5 font-display text-[34px] font-black leading-[1.1] tracking-[-0.035em] text-brand-navy sm:text-[44px] lg:text-[52px]">
-              Trusted by landlords, agents and property owners.
+            <span className="relative z-10 inline-flex items-center gap-2 rounded-full bg-brand-orange px-4 py-2 font-nav text-[11px] font-black uppercase tracking-[0.13em] text-white">
+              <UsersRound size={13} />
+              Testimonials
+            </span>
+
+            <h2 className="relative z-10 mt-3 max-w-[560px] font-display text-[30px] font-black leading-[1.04] tracking-[-0.035em] text-white">
+              Excellence in Service
+              <span className="block">
+                <span className="text-brand-orange">Quality</span> You Can Trust
+              </span>
             </h2>
-
-            <p className="mt-5 text-[16px] font-medium leading-8 text-slate-600">
-              Real feedback from customers who booked property compliance
-              services including EICR, Gas Safety, EPC, Fire Safety and PAT
-              Testing.
-            </p>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 22 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.55, delay: 0.08 }}
-            className="grid gap-4 sm:grid-cols-3"
+            transition={{ duration: 0.65, delay: 0.08 }}
+            className="absolute right-[48px] top-[66px] z-20 w-[455px]"
           >
-            <div className="rounded-[26px] border border-slate-100 bg-white p-5 shadow-[0_18px_50px_rgba(7,28,61,0.07)]">
-              <p className="font-display text-4xl font-black text-brand-navy">
-                5.0
-              </p>
-              <div className="mt-2 flex gap-1">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <Star
-                    key={star}
-                    size={17}
-                    className="fill-brand-orange text-brand-orange"
-                  />
-                ))}
-              </div>
-              <p className="mt-3 font-nav text-sm font-bold text-slate-500">
-                Average Rating
-              </p>
-            </div>
-
-            <div className="rounded-[26px] border border-slate-100 bg-white p-5 shadow-[0_18px_50px_rgba(7,28,61,0.07)]">
-              <p className="font-display text-4xl font-black text-brand-navy">
-                250+
-              </p>
-              <p className="mt-3 font-nav text-sm font-bold text-slate-500">
-                Happy Customers
-              </p>
-            </div>
-
-            <div className="rounded-[26px] border border-slate-100 bg-white p-5 shadow-[0_18px_50px_rgba(7,28,61,0.07)]">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-green-50 text-green-600">
-                <ShieldCheck size={24} />
-              </div>
-              <p className="mt-3 font-nav text-sm font-bold text-slate-500">
-                Certified Compliance Service
-              </p>
-            </div>
+            <ReviewsSlider />
           </motion.div>
-        </div>
 
-        <div className="mt-12 rounded-[36px] bg-brand-navy p-5 shadow-[0_30px_90px_rgba(7,28,61,0.22)] sm:p-7 lg:p-8">
-          <div className="mb-7 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p className="font-nav text-sm font-black uppercase tracking-[0.16em] text-brand-orange">
-                What customers say
-              </p>
-              <h3 className="mt-2 font-display text-[28px] font-black tracking-[-0.03em] text-white sm:text-[34px]">
-                Reviews from recent bookings
-              </h3>
-            </div>
-
-            <div className="hidden items-center gap-3 sm:flex">
-              <button
-                className="reviews-prev flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white transition-all duration-300 hover:bg-white hover:text-brand-navy"
-                aria-label="Previous review"
-              >
-                <ChevronLeft size={22} />
-              </button>
-
-              <button
-                className="reviews-next flex h-12 w-12 items-center justify-center rounded-full bg-brand-orange text-white shadow-[0_14px_30px_rgba(255,138,0,0.28)] transition-all duration-300 hover:bg-orange-500"
-                aria-label="Next review"
-              >
-                <ChevronRight size={22} />
-              </button>
-            </div>
-          </div>
-
-          <Swiper
-            modules={[Autoplay, Navigation, Pagination]}
-            navigation={{
-              prevEl: ".reviews-prev",
-              nextEl: ".reviews-next",
-            }}
-            pagination={{
-              clickable: true,
-              el: ".reviews-pagination",
-            }}
-            autoplay={{
-              delay: 3500,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            }}
-            loop={true}
-            grabCursor={true}
-            spaceBetween={22}
-            slidesPerView={1}
-            breakpoints={{
-              768: {
-                slidesPerView: 2,
-                spaceBetween: 24,
-              },
-              1180: {
-                slidesPerView: 3,
-                spaceBetween: 26,
-              },
-            }}
-            className="reviews-slider !overflow-visible"
+          <motion.p
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.65, delay: 0.12 }}
+            className="absolute bottom-[74px] left-0 z-10 max-w-[610px] text-[15px] font-semibold leading-7 text-white/92"
           >
-            {reviews.map((review, index) => (
-              <SwiperSlide key={review.name} className="!h-auto">
-                <motion.article
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    duration: 0.5,
-                    delay: index * 0.05,
-                    ease: "easeOut",
-                  }}
-                  className="group flex h-full min-h-[330px] flex-col rounded-[30px] border border-white/10 bg-white p-6 shadow-[0_20px_60px_rgba(0,0,0,0.12)] transition-all duration-500 hover:-translate-y-2"
-                >
-                  <div className="mb-5 flex items-start justify-between gap-4">
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-13 w-13 h-[52px] w-[52px] items-center justify-center rounded-full bg-brand-navy font-display text-sm font-black text-white">
-                        {getInitials(review.name)}
-                      </div>
+            {highlightKeywords(introText)}
+          </motion.p>
 
-                      <div>
-                        <h4 className="font-display text-lg font-black tracking-[-0.02em] text-brand-navy">
-                          {review.name}
-                        </h4>
-                        <p className="font-nav text-sm font-bold text-slate-500">
-                          {review.role}
-                        </p>
-                      </div>
-                    </div>
-
-                    <Quote
-                      size={34}
-                      className="text-brand-orange/30 transition group-hover:text-brand-orange"
-                    />
-                  </div>
-
-                  <div className="mb-4 flex gap-1">
-                    {Array.from({ length: review.rating }).map((_, star) => (
-                      <Star
-                        key={star}
-                        size={18}
-                        className="fill-brand-orange text-brand-orange"
-                      />
-                    ))}
-                  </div>
-
-                  <p className="text-[15.5px] font-medium leading-8 text-slate-600">
-                    “{review.text}”
-                  </p>
-
-                  <div className="mt-auto pt-6">
-                    <div className="inline-flex items-center gap-2 rounded-full bg-brand-light px-4 py-2 font-nav text-xs font-black uppercase tracking-[0.12em] text-brand-navy">
-                      <BadgeCheck size={15} className="text-brand-orange" />
-                      {review.service}
-                    </div>
-                  </div>
-                </motion.article>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-
-          <div className="reviews-pagination mt-8 flex justify-center" />
-
-          <div className="mt-7 flex justify-center gap-3 sm:hidden">
-            <button className="reviews-prev flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/10 text-white">
-              <ChevronLeft size={21} />
-            </button>
-
-            <button className="reviews-next flex h-11 w-11 items-center justify-center rounded-full bg-brand-orange text-white">
-              <ChevronRight size={21} />
-            </button>
-          </div>
+          <motion.a
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.65, delay: 0.16 }}
+            href="/book-service"
+            className="group absolute bottom-[95px] right-[96px] z-10 inline-flex items-center gap-2 rounded-sm bg-brand-orange px-9 py-3.5 font-nav text-sm font-black uppercase text-white shadow-[0_16px_38px_rgba(255,138,0,0.30)] transition-all duration-300 hover:-translate-y-1 hover:bg-orange-500"
+          >
+            Get A Quote
+            <ArrowRight
+              size={17}
+              className="transition-transform duration-300 group-hover:translate-x-1"
+            />
+          </motion.a>
         </div>
 
-        <div className="mt-8 flex flex-col items-center justify-between gap-4 rounded-[28px] border border-slate-200/70 bg-white px-6 py-6 text-center shadow-[0_18px_55px_rgba(7,28,61,0.07)] sm:flex-row sm:text-left">
+        {/* Mobile / tablet layout */}
+        <div className="grid gap-9 lg:hidden">
           <div>
-            <h3 className="font-display text-[24px] font-black tracking-[-0.025em] text-brand-navy">
-              Want to book a trusted property check?
-            </h3>
-            <p className="mt-2 text-sm font-medium leading-6 text-slate-500">
-              Choose the right certificate and book your inspection online.
-            </p>
+            <span className="inline-flex items-center gap-2 rounded-full bg-brand-orange px-4 py-2 font-nav text-[11px] font-black uppercase tracking-[0.13em] text-white">
+              <UsersRound size={13} />
+              Testimonials
+            </span>
+
+            <h2 className="mt-4 font-display text-[34px] font-black leading-[1.04] tracking-[-0.035em] text-white sm:text-[42px]">
+              Excellence in Service
+              <span className="block">
+                <span className="text-brand-orange">Quality</span> You Can Trust
+              </span>
+            </h2>
           </div>
+
+          <ReviewsSlider />
+
+          <p className="text-[15px] font-semibold leading-7 text-white/92">
+            {highlightKeywords(introText)}
+          </p>
 
           <a
-            href="#"
-            className="group inline-flex shrink-0 items-center gap-2 rounded-full bg-brand-orange px-6 py-3.5 font-nav text-sm font-black text-white shadow-[0_14px_30px_rgba(255,138,0,0.25)] transition-all duration-300 hover:-translate-y-1 hover:bg-orange-500"
+            href="/book-service"
+            className="group inline-flex w-fit items-center gap-2 rounded-sm bg-brand-orange px-8 py-3.5 font-nav text-sm font-black uppercase text-white shadow-[0_16px_38px_rgba(255,138,0,0.30)] transition-all duration-300 hover:-translate-y-1 hover:bg-orange-500"
           >
-            Book Service
+            Get A Quote
             <ArrowRight
               size={17}
               className="transition-transform duration-300 group-hover:translate-x-1"
