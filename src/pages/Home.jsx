@@ -14,6 +14,8 @@ import QuoteContactSection from "../components/QuoteContactSection"
 import ServiceAreasSection from "../components/ServiceAreasSection"
 import BlogSection from "../components/BlogSection"
 import TenantProtectedSection from "../components/TenantProtectedSection"
+import AccreditationsSection from "../components/AccreditationsSection"
+import MapImageSection from "../components/MapImageSection"
 
 function Home() {
   return (
@@ -32,8 +34,11 @@ function Home() {
       <ProcessSection />
       <TenantProtectedSection />
       <QuoteContactSection />
+      
       <ReviewsSection />
       <ServiceAreasSection />
+      <AccreditationsSection />
+      <MapImageSection />
       <BlogSection />
       <Footer />
     </>

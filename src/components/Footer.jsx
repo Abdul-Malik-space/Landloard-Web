@@ -33,7 +33,7 @@ const socialLinks = [
 
 function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-[#062f45] text-white">
+    <footer className="relative overflow-hidden bg-brand-navy text-white">
       <div className="absolute -left-32 -top-32 h-[420px] w-[420px] rounded-full bg-white/5" />
       <div className="absolute -right-40 bottom-0 h-[420px] w-[420px] rounded-full bg-brand-orange/10 blur-3xl" />
       <div className="absolute left-0 top-0 h-full w-full bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.06),transparent_30%)]" />

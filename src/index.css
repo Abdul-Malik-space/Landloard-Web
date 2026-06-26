@@ -157,4 +157,10 @@ img {
   background: #111111;
 }
 
+.accreditation-slider {
+  overflow: hidden !important;
+}
 
+.accreditation-slider .swiper-slide {
+  height: auto;
+}

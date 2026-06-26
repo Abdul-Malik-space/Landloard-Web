@@ -108,9 +108,14 @@ function highlightKeywords(text) {
   })
 }
 
-function ReviewCard({ review }) {
+function ReviewCard({ review, mobile = false }) {
   return (
-    <article className="flex h-full min-h-[158px] flex-col rounded-[9px] bg-white p-4 text-brand-navy shadow-[0_18px_45px_rgba(0,0,0,0.22)]">
+    <article
+      className={`flex h-full flex-col rounded-[10px] bg-white p-4 shadow-[0_18px_45px_rgba(0,0,0,0.22)] ${
+        mobile ? "min-h-[225px]" : "min-h-[158px]"
+      }`}
+      style={{ color: "#071c3d" }}
+    >
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
           <div
@@ -120,7 +125,7 @@ function ReviewCard({ review }) {
           </div>
 
           <div>
-            <h4 className="font-display text-[13px] font-black leading-tight text-brand-navy">
+            <h4 className="font-display text-[14px] font-black leading-tight text-brand-navy">
               {review.name}
             </h4>
             <p className="mt-0.5 text-[11px] font-medium text-slate-500">
@@ -144,25 +149,32 @@ function ReviewCard({ review }) {
         ))}
       </div>
 
-      <p className="mt-3 line-clamp-4 text-[13px] font-medium leading-5 text-slate-700">
+      <p
+        className={`mt-3 text-[13.5px] font-medium leading-6 text-slate-700 ${
+          mobile ? "" : "line-clamp-4"
+        }`}
+      >
         {highlightKeywords(review.text)}
       </p>
     </article>
   )
 }
 
-function ReviewsSlider() {
+function ReviewsSlider({ id = "desktop", mobile = false }) {
+  const prevClass = `reviews-${id}-prev`
+  const nextClass = `reviews-${id}-next`
+
   return (
-    <div className="relative">
+    <div className="relative w-full min-w-0">
       <button
-        className="reviews-ref-prev absolute -left-5 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-brand-navy shadow-lg transition hover:bg-brand-orange hover:text-white"
+        className={`${prevClass} absolute -left-4 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-brand-navy shadow-lg transition hover:bg-brand-orange hover:text-white sm:-left-5`}
         aria-label="Previous review"
       >
         <ChevronLeft size={19} />
       </button>
 
       <button
-        className="reviews-ref-next absolute -right-5 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-brand-navy shadow-lg transition hover:bg-brand-orange hover:text-white"
+        className={`${nextClass} absolute -right-4 top-1/2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-brand-navy shadow-lg transition hover:bg-brand-orange hover:text-white sm:-right-5`}
         aria-label="Next review"
       >
         <ChevronRight size={19} />
@@ -171,8 +183,8 @@ function ReviewsSlider() {
       <Swiper
         modules={[Autoplay, Navigation]}
         navigation={{
-          prevEl: ".reviews-ref-prev",
-          nextEl: ".reviews-ref-next",
+          prevEl: `.${prevClass}`,
+          nextEl: `.${nextClass}`,
         }}
         autoplay={{
           delay: 3300,
@@ -183,17 +195,21 @@ function ReviewsSlider() {
         grabCursor={true}
         spaceBetween={14}
         slidesPerView={1}
-        breakpoints={{
-          640: {
-            slidesPerView: 2,
-            spaceBetween: 14,
-          },
-        }}
+        breakpoints={
+          mobile
+            ? {}
+            : {
+                640: {
+                  slidesPerView: 2,
+                  spaceBetween: 14,
+                },
+              }
+        }
         className="reviews-reference-slider"
       >
         {reviews.map((review) => (
           <SwiperSlide key={`${review.name}-${review.date}`} className="!h-auto">
-            <ReviewCard review={review} />
+            <ReviewCard review={review} mobile={mobile} />
           </SwiperSlide>
         ))}
       </Swiper>
@@ -246,7 +262,7 @@ function ReviewsSection() {
             transition={{ duration: 0.65, delay: 0.08 }}
             className="absolute right-[48px] top-[66px] z-20 w-[455px]"
           >
-            <ReviewsSlider />
+            <ReviewsSlider id="desktop" />
           </motion.div>
 
           <motion.p
@@ -276,14 +292,14 @@ function ReviewsSection() {
         </div>
 
         {/* Mobile / tablet layout */}
-        <div className="grid gap-9 lg:hidden">
+        <div className="grid min-w-0 gap-9 lg:hidden">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-brand-orange px-4 py-2 font-nav text-[11px] font-black uppercase tracking-[0.13em] text-white">
               <UsersRound size={13} />
               Testimonials
             </span>
 
-            <h2 className="mt-4 font-display text-[34px] font-black leading-[1.04] tracking-[-0.035em] text-white sm:text-[42px]">
+            <h2 className="mt-4 font-display text-[30px] font-black leading-[1.08] tracking-[-0.035em] text-white sm:text-[42px]">
               Excellence in Service
               <span className="block">
                 <span className="text-brand-orange">Quality</span> You Can Trust
@@ -291,7 +307,9 @@ function ReviewsSection() {
             </h2>
           </div>
 
-          <ReviewsSlider />
+          <div className="w-full min-w-0">
+            <ReviewsSlider id="mobile" mobile />
+          </div>
 
           <p className="text-[15px] font-semibold leading-7 text-white/92">
             {highlightKeywords(introText)}

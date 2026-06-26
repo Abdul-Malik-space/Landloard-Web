@@ -63,52 +63,52 @@ function QuoteContactSection() {
     "Need to schedule a landlord safety inspection or have questions about your property compliance obligations? Get in touch with landlordspropertychecks for expert advice and fast, certified services. Whether you’re booking an EICR, Gas Safety Check, EPC, or need support with boiler servicing, plumbing repairs, or fuse box upgrades, our team is ready to assist. We help landlords, letting agents, and property managers across London stay legally compliant and inspection-ready. Call now, request a quote, or book an inspection online we’re here to ensure your property meets all regulatory standards."
 
   return (
-    <section className="relative overflow-hidden bg-white py-16 sm:py-20 lg:py-24">
+    <section className="relative overflow-hidden bg-white py-12 sm:py-16 lg:py-24">
       <div className="absolute inset-0 bg-[linear-gradient(135deg,#ffffff_0%,#f8fafc_50%,#ffffff_100%)]" />
-      <div className="absolute -left-32 top-16 h-80 w-80 rounded-full bg-brand-orange/10 blur-3xl" />
-      <div className="absolute -right-32 bottom-10 h-96 w-96 rounded-full bg-brand-blue/10 blur-3xl" />
+      <div className="absolute -left-32 top-16 h-72 w-72 rounded-full bg-brand-orange/10 blur-3xl" />
+      <div className="absolute -right-32 bottom-10 h-80 w-80 rounded-full bg-brand-blue/10 blur-3xl" />
 
-      <div className="relative mx-auto max-w-[1160px] px-5 lg:px-8">
-        <div className="grid items-start gap-12 lg:grid-cols-[1fr_0.9fr] lg:gap-16">
+      <div className="relative mx-auto max-w-[1160px] px-4 sm:px-5 lg:px-8">
+        <div className="grid min-w-0 items-start gap-10 lg:grid-cols-[1fr_0.9fr] lg:gap-16">
           <motion.div
-            initial={{ opacity: 0, x: -34 }}
+            initial={{ opacity: 0, x: -28 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.25 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="pt-2"
+            className="min-w-0 pt-1"
           >
-            <h2 className="max-w-[560px] font-display text-[30px] font-black uppercase leading-[1.22] tracking-[-0.03em] text-brand-navy sm:text-[38px] lg:text-[42px]">
+            <h2 className="max-w-[560px] font-display text-[25px] font-black uppercase leading-[1.25] tracking-[-0.03em] text-brand-navy sm:text-[34px] lg:text-[42px]">
               Contact us to schedule your landlord{" "}
               <span className="text-brand-orange">certificates</span> in London
             </h2>
 
-            <p className="mt-7 max-w-[560px] text-[15.5px] font-medium leading-7 text-slate-700">
+            <p className="mt-5 max-w-[560px] text-[14.5px] font-medium leading-7 text-slate-700 sm:mt-7 sm:text-[15.5px]">
               {highlightText(description)}
             </p>
 
-            <div className="mt-9 space-y-4">
+            <div className="mt-8 space-y-4 sm:mt-9">
               <a
                 href="mailto:info@landlordspropertychecks.co.uk"
-                className="group flex max-w-[520px] items-center gap-5"
+                className="group flex min-w-0 max-w-[520px] items-center gap-4 sm:gap-5"
               >
-                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[4px] border-l-[6px] border-brand-orange bg-white text-brand-navy shadow-[0_10px_28px_rgba(7,28,61,0.08)] transition-all duration-300 group-hover:bg-brand-orange group-hover:text-white">
-                  <Mail size={24} />
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[4px] border-l-[5px] border-brand-orange bg-white text-brand-navy shadow-[0_10px_28px_rgba(7,28,61,0.08)] transition-all duration-300 group-hover:bg-brand-orange group-hover:text-white sm:h-14 sm:w-14 sm:border-l-[6px]">
+                  <Mail size={22} />
                 </span>
 
-                <span className="text-[16px] font-semibold text-brand-navy sm:text-[18px]">
+                <span className="min-w-0 break-all text-[14px] font-semibold text-brand-navy sm:text-[18px]">
                   info@landlordspropertychecks.co.uk
                 </span>
               </a>
 
               <a
                 href="tel:02081239487"
-                className="group flex max-w-[520px] items-center gap-5"
+                className="group flex min-w-0 max-w-[520px] items-center gap-4 sm:gap-5"
               >
-                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[4px] border-l-[6px] border-brand-orange bg-white text-brand-navy shadow-[0_10px_28px_rgba(7,28,61,0.08)] transition-all duration-300 group-hover:bg-brand-orange group-hover:text-white">
-                  <Phone size={24} />
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[4px] border-l-[5px] border-brand-orange bg-white text-brand-navy shadow-[0_10px_28px_rgba(7,28,61,0.08)] transition-all duration-300 group-hover:bg-brand-orange group-hover:text-white sm:h-14 sm:w-14 sm:border-l-[6px]">
+                  <Phone size={22} />
                 </span>
 
-                <span className="text-[16px] font-semibold text-brand-navy sm:text-[18px]">
+                <span className="text-[15px] font-semibold text-brand-navy sm:text-[18px]">
                   020 8123 9487
                 </span>
               </a>
@@ -117,13 +117,13 @@ function QuoteContactSection() {
                 href="https://wa.me/447723810869"
                 target="_blank"
                 rel="noreferrer"
-                className="group flex max-w-[520px] items-center gap-5"
+                className="group flex min-w-0 max-w-[520px] items-center gap-4 sm:gap-5"
               >
-                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[4px] border-l-[6px] border-brand-orange bg-white text-brand-navy shadow-[0_10px_28px_rgba(7,28,61,0.08)] transition-all duration-300 group-hover:bg-brand-orange group-hover:text-white">
-                  <MessageCircle size={24} />
+                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[4px] border-l-[5px] border-brand-orange bg-white text-brand-navy shadow-[0_10px_28px_rgba(7,28,61,0.08)] transition-all duration-300 group-hover:bg-brand-orange group-hover:text-white sm:h-14 sm:w-14 sm:border-l-[6px]">
+                  <MessageCircle size={22} />
                 </span>
 
-                <span className="text-[16px] font-semibold text-brand-navy sm:text-[18px]">
+                <span className="text-[15px] font-semibold text-brand-navy sm:text-[18px]">
                   07723 810869
                 </span>
               </a>
@@ -131,50 +131,50 @@ function QuoteContactSection() {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 34 }}
+            initial={{ opacity: 0, x: 28 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.25 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="rounded-[10px] bg-[#f7f7f7] p-6 shadow-[0_22px_70px_rgba(7,28,61,0.08)] sm:p-8"
+            className="w-full min-w-0 rounded-[16px] bg-[#f7f7f7] p-4 shadow-[0_22px_70px_rgba(7,28,61,0.08)] sm:p-6 lg:p-8"
           >
-            <div className="mb-8">
-              <p className="font-nav text-[11px] font-black uppercase tracking-[0.18em] text-slate-400">
+            <div className="mb-6 sm:mb-8">
+              <p className="font-nav text-[10px] font-black uppercase tracking-[0.18em] text-slate-400 sm:text-[11px]">
                 Estimate Form
               </p>
 
-              <h3 className="mt-2 border-l-[3px] border-brand-orange pl-3 font-display text-[30px] font-black tracking-[-0.035em] text-brand-navy sm:text-[34px]">
+              <h3 className="mt-2 border-l-[3px] border-brand-orange pl-3 font-display text-[26px] font-black tracking-[-0.035em] text-brand-navy sm:text-[34px]">
                 Get Free Quote
               </h3>
             </div>
 
-            <form className="space-y-4">
+            <form className="space-y-3.5 sm:space-y-4">
               <input
                 type="text"
                 name="fullName"
                 placeholder="Full Name"
-                className="h-11 w-full border border-slate-100 bg-white px-4 text-sm font-medium text-brand-navy outline-none transition focus:border-brand-orange"
+                className="h-12 w-full rounded-none border border-slate-200 bg-white px-4 text-sm font-medium text-brand-navy outline-none transition placeholder:text-slate-400 focus:border-brand-orange"
               />
 
               <input
                 type="email"
                 name="email"
                 placeholder="Email"
-                className="h-11 w-full border border-slate-100 bg-white px-4 text-sm font-medium text-brand-navy outline-none transition focus:border-brand-orange"
+                className="h-12 w-full rounded-none border border-slate-200 bg-white px-4 text-sm font-medium text-brand-navy outline-none transition placeholder:text-slate-400 focus:border-brand-orange"
               />
 
-              <div className="grid gap-4 sm:grid-cols-2">
+              <div className="grid gap-3.5 sm:grid-cols-2 sm:gap-4">
                 <input
                   type="tel"
                   name="phone"
                   placeholder="Phone"
-                  className="h-11 w-full border border-slate-100 bg-white px-4 text-sm font-medium text-brand-navy outline-none transition focus:border-brand-orange"
+                  className="h-12 w-full rounded-none border border-slate-200 bg-white px-4 text-sm font-medium text-brand-navy outline-none transition placeholder:text-slate-400 focus:border-brand-orange"
                 />
 
                 <input
                   type="text"
                   name="postcode"
                   placeholder="Postcode"
-                  className="h-11 w-full border border-slate-100 bg-white px-4 text-sm font-medium text-brand-navy outline-none transition focus:border-brand-orange"
+                  className="h-12 w-full rounded-none border border-slate-200 bg-white px-4 text-sm font-medium text-brand-navy outline-none transition placeholder:text-slate-400 focus:border-brand-orange"
                 />
               </div>
 
@@ -182,7 +182,7 @@ function QuoteContactSection() {
                 <select
                   name="service"
                   defaultValue=""
-                  className="h-11 w-full appearance-none border border-slate-100 bg-white px-4 pr-10 text-sm font-medium text-brand-navy outline-none transition focus:border-brand-orange"
+                  className="h-12 w-full appearance-none rounded-none border border-slate-200 bg-white px-4 pr-10 text-sm font-medium text-brand-navy outline-none transition focus:border-brand-orange"
                 >
                   <option value="" disabled>
                     -- Select Service --
@@ -197,7 +197,7 @@ function QuoteContactSection() {
 
                 <ChevronDown
                   size={18}
-                  className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-brand-navy"
+                  className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-brand-navy"
                 />
               </div>
 
@@ -205,11 +205,11 @@ function QuoteContactSection() {
                 name="message"
                 placeholder="Message"
                 rows={5}
-                className="w-full resize-none border border-slate-100 bg-white px-4 py-3 text-sm font-medium text-brand-navy outline-none transition focus:border-brand-orange"
+                className="w-full resize-none rounded-none border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-brand-navy outline-none transition placeholder:text-slate-400 focus:border-brand-orange"
               />
 
-              <div className="flex h-[58px] w-[230px] items-center gap-3 border border-slate-300 bg-white px-3">
-                <span className="h-6 w-6 border border-slate-500 bg-white" />
+              <div className="flex h-[58px] w-full max-w-[260px] items-center gap-3 border border-slate-300 bg-white px-3 sm:w-[260px]">
+                <span className="h-6 w-6 shrink-0 border border-slate-500 bg-white" />
 
                 <span className="text-xs font-medium text-slate-700">
                   I'm not a robot
